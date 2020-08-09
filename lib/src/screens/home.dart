@@ -11,20 +11,37 @@ class HomeState extends State<Home> with TickerProviderStateMixin{
   Animation<double> catAnimation;
   AnimationController catController;
 
+  Animation<double> boxAnimation;
+  AnimationController boxController;
+
 
   initState(){
     super.initState();
+
+    boxController= AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+    );
 
     catController=AnimationController(
       duration: Duration(milliseconds: 200),
       vsync: this,
     );
-    catAnimation= Tween(begin: -50.0,end: -85.0).animate(
+    boxAnimation=Tween(begin: 0.0,end: pi).animate(
+      CurvedAnimation(
+        parent: boxController,
+        curve: Curves.linear,
+      ),
+    );
+
+    catAnimation= Tween(begin: -35.0,end: -80.0).animate(
       CurvedAnimation(
         parent: catController,
         curve: Curves.easeIn,
       ),
     );
+
+
   }
   onTap(){
     print("lol");
@@ -49,7 +66,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin{
             children: <Widget>[
               buildCatAnimation(),
               buildBox(),
+              buildRightFlap(),
               buildLeftFlap(),
+
 
 
             ],
@@ -83,13 +102,29 @@ class HomeState extends State<Home> with TickerProviderStateMixin{
     );
   }
   Widget buildLeftFlap(){
+    return Positioned(
+      left: 3.0,
+      child: Transform.rotate(
+        child: Container(
+          height: 10.0,
+          width: 125.0,
+          color: Colors.brown,
+        ),
+        angle: (pi*0.655),
+        alignment: Alignment.topLeft,
+      ),
+    );
+  }
+
+  Widget buildRightFlap() {
     return Transform.rotate(
       child: Container(
         height: 10.0,
-        width: 125.0,
+        width: 200.0,
         color: Colors.red,
       ),
-      angle: pi/2.0,
+      angle: (pi / 0.750),
+      alignment: Alignment.topRight,
     );
   }
 }
