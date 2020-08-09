@@ -45,8 +45,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin{
           child: Stack(
             overflow: Overflow.visible,
             children: <Widget>[
-              buildBox(),
+
               buildCatAnimation(),
+              buildBox(),
 
             ],
           ),
